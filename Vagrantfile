@@ -7,7 +7,10 @@ load personalization
 Vagrant.configure("2") do |config|
   config.vm.box = $base_box
 
-  config.vm.host_name = $vhost + ".dev"
+  config.vm.hostname = $vhost + ".dev"
+
+  config.hostsupdater.aliases = ["api." + $vhost + ".dev", "register." + $vhost + ".dev"]
+  config.hostsupdater.remove_on_suspend = true
 
   config.vm.network :private_network, ip: $ip
 
