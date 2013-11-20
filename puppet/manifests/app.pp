@@ -1,3 +1,5 @@
+import "app/*"
+
 Exec { path => ['/usr/local/bin', '/opt/local/bin', '/usr/bin', '/usr/sbin', '/bin', '/sbin'], logoutput => true }
 Package { require => Exec['apt_update'], }
 exec {"apt_update": command => '/usr/bin/apt-get update', }

@@ -4,21 +4,24 @@
 personalization = File.expand_path("../Personalization", __FILE__)
 load personalization
 
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   config.vm.box = $base_box
 
   config.vm.host_name = $vhost + ".dev"
 
-  config.vm.network :hostonly, $ip
+  config.vm.network :private_network, ip: $ip
 
-  config.vm.share_folder $vhost, "/srv/www/vhosts/" + $vhost + ".dev", "../", :nfs => $use_nfs
+  config.vm.synced_folder "../", "/srv/www/vhosts/" + $vhost + ".dev", id: "vagrant-root"
 
-  config.vm.customize ["modifyvm", :id, "--memory", "512"]
+  config.vm.provider :virtualbox do |v|
+    v.customize ["modifyvm", :id, "--memory", 512]
+  end
 
   config.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "puppet"
+      puppet.manifests_path = "puppet/manifests"
       puppet.manifest_file  = "app.pp"
       puppet.module_path    = "puppet/modules"
+      puppet.options        = "--verbose"
       puppet.facter         = {
                                 "vhost" => $vhost,
                                 "webserver" => $webserver

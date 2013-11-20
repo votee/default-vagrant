@@ -4,9 +4,6 @@ $vhost = "app"
 # VM IP
 $ip = "192.168.10.42"
 
-# Use NFS?
-$use_nfs = true
-
 # Base box name
 $base_box = ""
 
