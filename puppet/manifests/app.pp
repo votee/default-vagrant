@@ -28,8 +28,8 @@ Mysql::Db {
     require => Class['mysql::server', 'mysql::config'],
 }
 
+include app::nodejs
 include app::php
 include app::webserver
 include app::tools
 include app::database
-
