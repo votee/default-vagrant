@@ -12,7 +12,7 @@ class app::php {
     }
 
     exec {"create-doctrine-schema":
-        require = Package["php5-cli"],
+        require => Package["php5-cli"],
         command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:schema:create'",
     }
 
