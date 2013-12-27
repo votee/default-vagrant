@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: $ip
 
-  config.vm.synced_folder "../", "/srv/www/vhosts/" + $vhost + ".dev", id: "vagrant-root"
+  config.vm.synced_folder "../", "/srv/www/vhosts/" + $vhost + ".dev", id: "vagrant-root", type: "nfs"
 
   config.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--memory", 512]
