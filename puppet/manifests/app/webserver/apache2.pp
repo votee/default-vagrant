@@ -11,10 +11,16 @@ class app::webserver::apache2 {
         notify => Service["httpd"],
     }
 
-    file {"/etc/apache2/sites-enabled/$vhost":
+    file {"/etc/apache2/sites-available/$vhost":
         ensure => present,
         content => template("/vagrant/files/etc/apache2/sites-available/app.dev"),
         require => Package["httpd"],
+    }
+
+    file {"/etc/apache2/sites-enabled/$vhost":
+        ensure => link,
+        target => "/etc/apache2/sites-available/$vhost",
+        require => [Package["httpd"],File["/etc/apache2/sites-available/$vhost"]],
         notify => Service["httpd"],
     }
 
