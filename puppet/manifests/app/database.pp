@@ -5,19 +5,25 @@ class app::database {
       password => $vhost,
     }
 
-    exec {"db-drop":
+    exec {"db-create":
         require => Package["php5-cli"],
-        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:schema:drop --force'",
+        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:database:create'",
     }
 
-    exec {"db-setup":
-        require => [Exec["db-drop"], Package["php5-cli"]],
+    exec {"db-schema-create":
+        require => [Exec["db-create"], Package["php5-cli"]],
         command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:schema:create'",
     }
 
     exec {"db-default-data":
-        require => [Exec["db-setup"], Package["php5-cli"]],
-        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:fixtures:load'",
-        onlyif => "/usr/bin/test -d /srv/www/vhosts/$vhost.dev/src/*/*/DataFixtures",
+        require => [Exec["db-schema-create"], Package["php5-cli"]],
+        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:fixtures:load --no-interaction'",
+        onlyif => "/srv/www/vhosts/$vhost.dev/app/console list | grep doctrine:fixtures",
+    }
+
+    exec {"db-migrations":
+        require => [Exec["db-schema-create"], Package["php5-cli"]],
+        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:migrations:migrate --no-interaction'",
+        onlyif => "/srv/www/vhosts/$vhost.dev/app/console list | grep doctrine:migrations",
     }
 }
