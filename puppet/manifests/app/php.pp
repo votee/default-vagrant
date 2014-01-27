@@ -7,8 +7,9 @@ class app::php {
     }
 
     exec {"clear-symfony-cache":
-        require => Package["php5-cli"],
+        require => [Package["php5-cli"], Exec["install-bower"]],
         command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console cache:clear --env=dev'",
+        user => "www-data"
     }
 
     if 'nginx' == $webserver {
