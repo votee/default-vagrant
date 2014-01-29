@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--memory", 2048]
+    v.customize ["modifyvm", :id, "--name", $vhost]
   end
 
   config.vm.provision :puppet do |puppet|
