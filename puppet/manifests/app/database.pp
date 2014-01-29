@@ -12,7 +12,7 @@ class app::database {
 
     exec {"db-schema-create":
         require => [Exec["db-create"], Package["php5-cli"], Class["mysql::server", "mysql::config"]],
-        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:schema:update'",
+        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:schema:update --force'",
     }
 
     exec {"db-default-data":
