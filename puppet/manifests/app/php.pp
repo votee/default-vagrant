@@ -1,7 +1,7 @@
 import 'php/*'
 
 class app::php {
-    package {["php5", "php5-cli", "php5-dev", "php-apc", "php5-mysql", "php5-intl", "php5-curl"]:
+    package {["php5", "php5-cli", "php5-dev", "php-apc", "php5-mysql", "php5-intl", "php5-curl", "php5-xdebug"]:
         ensure => present,
         notify => Service[$webserverService],
     }
