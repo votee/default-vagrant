@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "../", "/srv/www/vhosts/" + $vhost + ".dev", id: "vagrant-root", type: "nfs"
 
   config.vm.provider :virtualbox do |v|
-    v.customize ["modifyvm", :id, "--memory", 512]
+    v.customize ["modifyvm", :id, "--memory", 2048]
   end
 
   config.vm.provision :puppet do |puppet|
