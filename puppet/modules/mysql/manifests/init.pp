@@ -17,6 +17,7 @@ class mysql (
 ) inherits mysql::params {
 
   package { 'mysql_client':
+    require => Exec["apt-update-mysql"],
     ensure => $package_ensure,
     name   => $package_name,
   }

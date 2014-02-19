@@ -30,7 +30,18 @@ class mysql::server (
 
   create_resources( 'class', $config_class )
 
+  exec {"add-mysql-apt-repository":
+    require => Package["python-software-properties"],
+    command => "add-apt-repository ppa:ondrej/mysql-5.6",
+  }
+
+  exec {"apt-update-mysql":
+    require => Exec["add-mysql-apt-repository"],
+    command => "/usr/bin/apt-get update",
+  }
+
   package { 'mysql-server':
+    require => Exec["apt-update-mysql"],
     ensure => $package_ensure,
     name   => $package_name,
   }
