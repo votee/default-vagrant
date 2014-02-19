@@ -5,13 +5,8 @@ class app::database {
       password => $vhost,
     }
 
-    exec {"db-create":
-        require => [Package["php5-cli"], Class["mysql::server", "mysql::config"]], 
-        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:database:create'",
-    }
-
     exec {"db-schema-create":
-        require => [Exec["db-create"], Package["php5-cli"], Class["mysql::server", "mysql::config"]],
+        require => [Package["php5-cli"], Class["mysql::server", "mysql::config"]],
         command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:schema:update --force'",
     }
 
