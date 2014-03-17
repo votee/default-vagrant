@@ -9,7 +9,12 @@ Vagrant.configure("2") do |config|
 
   config.vm.hostname = $vhost + ".dev"
 
-  config.hostsupdater.aliases = ["api." + $vhost + ".dev", "register." + $vhost + ".dev", "s." + $vhost + ".dev"]
+  config.hostsupdater.aliases = []
+  for subdomain in ['api', 'register', 's']
+    for env in ['dev', 'test']
+      config.hostsupdater.aliases << subdomain + '.' + $vhost + '.' + env
+    end
+  end
   config.hostsupdater.remove_on_suspend = true
 
   config.vm.network :private_network, ip: $ip
