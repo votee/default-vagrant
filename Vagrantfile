@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = $vhost + ".dev"
 
   config.hostsupdater.aliases = []
-  for subdomain in ['api', 'register', 's']
+  for subdomain in ['api', 'register', 's', 'mobile']
     for env in ['dev', 'test']
       config.hostsupdater.aliases << subdomain + '.' + $vhost + '.' + env
     end
