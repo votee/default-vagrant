@@ -4,7 +4,7 @@ class app::database {
       user     => $vhost,
       password => $vhost,
     }
-
+    ->
     exec {"db-schema-create":
         require => [Package["php5-cli"], Class["mysql::server", "mysql::config"]],
         command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console doctrine:schema:update --force'",
