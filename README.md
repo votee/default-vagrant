@@ -21,7 +21,7 @@
     $vhost = "test"
     $ip = "192.168.10.42"
 
-    $base_box = "precise64"
+    $base_box = "ubuntu/trusty64"
 
     $webserver = "nginx"
     ```

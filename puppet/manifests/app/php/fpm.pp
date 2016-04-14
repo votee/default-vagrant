@@ -1,29 +1,29 @@
 class app::php::fpm {
-    package { "php5-fpm":
+    package { "php7.0-fpm":
         ensure => present,
         notify => Service[$webserver],
     }
 
-    file {"/etc/php5/fpm/pool.d":
+    file {"/etc/php/7.0/fpm/pool.d":
         ensure => directory,
         owner => root,
         group => root,
-        require => [Package["php5-fpm"]],
+        require => [Package["php7.0-fpm"]],
     }
 
-    file {"/etc/php5/fpm/pool.d/$vhost.conf":
+    file {"/etc/php/7.0/fpm/pool.d/$vhost.conf":
         ensure => present,
         owner => root,
         group => root,
-        content => template("/vagrant/files/etc/php5/fpm/pool.d/app.conf"),
-        require => [File["/etc/php5/fpm/pool.d"]],
-        notify => Service["php5-fpm", "nginx"],
+        content => template("/vagrant/files/etc/php/7.0/fpm/pool.d/app.conf"),
+        require => [File["/etc/php/7.0/fpm/pool.d"]],
+        notify => Service["php7.0-fpm", "nginx"],
     }
 
-    service {"php5-fpm":
+    service {"php7.0-fpm":
         ensure => running,
         hasrestart => true,
         hasstatus => true,
-        require => [Package[php5-fpm]],
+        require => [Package[php7.0-fpm]],
     }
 }
