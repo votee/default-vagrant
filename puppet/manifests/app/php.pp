@@ -11,7 +11,7 @@ class app::php {
         command => "/usr/bin/apt-get update",
     }
 
-    package {["php7.0", "php7.0-cli", "php7.0-dev", "php-apc", "php7.0-mysql", "php7.0-intl", "php7.0-curl", "php-xdebug", "php-redis"]:
+    package {["php7.0", "php7.0-cli", "php7.0-dev", "php-apcu-bc", "php7.0-mysql", "php7.0-intl", "php7.0-curl", "php-xdebug", "php-redis"]:
         require => Exec["apt-update-php"],
         ensure => present,
         notify => Service[$webserverService],
