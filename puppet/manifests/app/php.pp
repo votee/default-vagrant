@@ -7,7 +7,7 @@ class app::php {
     }
 
     exec {"apt-update-php":
-        require => Exec["add-apt-repository"],
+        require => Exec["add-php-apt-repository"],
         command => "/usr/bin/apt-get update",
     }
 
@@ -17,8 +17,13 @@ class app::php {
         notify => Service[$webserverService],
     }
 
+    file {"/var/www/":
+        ensure => "directory",
+        owner => "www-data",
+    }
+
     exec {"clear-symfony-cache":
-        require => [Package["php7.0-cli"], Exec["install-bower"], Exec["db-schema-create"]],
+        require => [File["/var/www/"], Package["php7.0-cli"], Exec["install-bower"], Exec["db-schema-create"]],
         command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console cache:clear --env=dev'",
         user => "www-data"
     }
