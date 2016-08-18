@@ -24,6 +24,6 @@ class app::php::fpm {
         ensure => running,
         hasrestart => true,
         hasstatus => true,
-        require => [Package[php7.0-fpm]],
+        require => [Package["php7.0-fpm"]],
     }
 }
