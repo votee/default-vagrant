@@ -3,17 +3,22 @@ class app::nodejs {
         ensure => present,
     }
 
-    exec {"apt-update-nodejs":
-        command => "/usr/bin/apt-get update",
+    package {["curl"]:
+        ensure => present,
     }
 
-    package {["nodejs-legacy", "npm"]:
-        require => Exec["apt-update-nodejs"],
+    exec {"setup-nodejs-v6":
+        require => Package["curl"],
+        command => "curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -",
+    }
+
+    package {["nodejs"]:
+        require => Exec["setup-nodejs-v6"],
         ensure => present,
     }
 
     exec {"install-bower":
-        require => Package["npm"],
+        require => Package["nodejs"],
         command => "npm install -g bower",
     }
 }
