@@ -13,7 +13,7 @@ class app::webserver::apache2 {
 
     file {"/etc/apache2/sites-available/$vhost":
         ensure => present,
-        content => template("/vagrant/files/etc/apache2/sites-available/app.dev"),
+        content => template("/vagrant/files/etc/apache2/sites-available/app.localhost"),
         require => Package["httpd"],
     }
 

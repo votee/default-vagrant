@@ -7,11 +7,11 @@ load personalization
 Vagrant.configure("2") do |config|
   config.vm.box = $base_box
 
-  config.vm.hostname = $vhost + ".dev"
+  config.vm.hostname = $vhost + ".localhost"
 
   config.hostsupdater.aliases = []
   for subdomain in ['api', 'register', 's', 'mobile']
-    for env in ['dev', 'test']
+    for env in ['localhost', 'test']
       config.hostsupdater.aliases << subdomain + '.' + $vhost + '.' + env
     end
   end
@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: $ip
 
-  config.vm.synced_folder "../", "/srv/www/vhosts/" + $vhost + ".dev", id: "vagrant-root", type: "nfs"
+  config.vm.synced_folder "../", "/srv/www/vhosts/" + $vhost + ".localhost", id: "vagrant-root", type: "nfs"
 
   config.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--memory", 2048]

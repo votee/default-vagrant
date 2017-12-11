@@ -24,7 +24,7 @@ class app::php {
 
     exec {"clear-symfony-cache":
         require => [File["/var/www/"], Package["php7.0-cli"], Exec["install-bower"], Exec["db-schema-create"]],
-        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.dev && /usr/bin/php app/console cache:clear --env=dev'",
+        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.localhost && /usr/bin/php app/console cache:clear --env=dev'",
         user => "www-data"
     }
 
