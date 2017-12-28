@@ -2,23 +2,23 @@
 	ServerAdmin developer@<%= @vhost %>.localhost
 
     ServerName <%= @vhost %>.localhost
-	DocumentRoot /srv/www/vhosts/<%= @vhost %>.localhost/web
+	DocumentRoot /srv/www/vhosts/<%= @vhost %>.localhost/public
 	<Directory /srv/www/vhosts/<%= @vhost %>.localhost>
 		Options FollowSymLinks
 		AllowOverride None
 	</Directory>
-	<Directory /srv/www/vhosts/<%= @vhost %>.localhost/web>
+	<Directory /srv/www/vhosts/<%= @vhost %>.localhost/public>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride All
 		Order allow,deny
 		allow from all
 	</Directory>
 
-	ErrorLog /srv/www/vhosts/<%= @vhost %>.localhost/app/logs/error.log
+	ErrorLog /srv/www/vhosts/<%= @vhost %>.localhost/var/log/error.log
 
 	# Possible values include: debug, info, notice, warn, error, crit,
 	# alert, emerg.
 	LogLevel notice
 
-	CustomLog /srv/www/vhosts/<%= @vhost %>.localhost/app/logs/access.log combined
+	CustomLog /srv/www/vhosts/<%= @vhost %>.localhost/var/log/access.log combined
 </VirtualHost>
