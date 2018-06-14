@@ -11,7 +11,7 @@ class app::php {
         command => "/usr/bin/apt-get update",
     }
 
-    package {["php7.0-cli", "php7.0-dev", "php-apcu-bc", "php7.0-mysql", "php7.0-intl", "php7.0-curl", "php7.0-zip", "php-xdebug", "php-redis", "php-gd"]:
+    package {["php7.2-cli", "php7.2-dev", "php-apcu-bc", "php7.2-mysql", "php7.2-intl", "php7.2-curl", "php7.2-xml", "php7.2-zip", "php-xdebug", "php-redis", "php-gd"]:
         require => Exec["apt-update-php"],
         ensure => present,
         notify => Service[$webserverService],
@@ -23,8 +23,8 @@ class app::php {
     }
 
     exec {"clear-symfony-cache":
-        require => [File["/var/www/"], Package["php7.0-cli"], Exec["install-bower"], Exec["db-schema-create"]],
-        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.localhost && /usr/bin/php app/console cache:clear --env=dev'",
+        require => [File["/var/www/"], Package["php7.2-cli"], Exec["install-bower"], Exec["db-schema-create"]],
+        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.localhost && php composer.phar install'",
         user => "www-data"
     }
 
