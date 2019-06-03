@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = $vhost + ".localhost"
 
   config.hostsupdater.aliases = []
-  for subdomain in ['api', 'register', 's', 'mobile']
+  for subdomain in ['api', 's', 'mobile', 'va']
     config.hostsupdater.aliases << subdomain + '.' + $vhost + '.localhost'
   end
   config.hostsupdater.remove_on_suspend = true
