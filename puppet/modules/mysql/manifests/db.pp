@@ -70,7 +70,7 @@ define mysql::db (
 
     $refresh = ! $enforce_sql
 
-    if $sql {
+    if $sql != '' {
       exec{ "${name}-import":
         command     => "/usr/bin/mysql ${name} < ${sql}",
         logoutput   => true,

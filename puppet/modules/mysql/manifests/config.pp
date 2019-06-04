@@ -80,6 +80,7 @@ class mysql::config(
   # restart.  the reason is that I need the service to be started before mods
   # to the config file which can cause a refresh
   exec { 'mysqld-restart':
+    require     => Exec["apparmor-reload"],
     command     => "service ${service_name} restart",
     logoutput   => on_failure,
     refreshonly => true,

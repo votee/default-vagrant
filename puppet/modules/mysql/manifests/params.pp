@@ -20,7 +20,7 @@ class mysql::params {
 
   case $::operatingsystem {
     'Ubuntu': {
-      $service_provider = upstart
+      $service_provider = systemd
     }
     default: {
       $service_provider = undef
@@ -52,8 +52,8 @@ class mysql::params {
       $basedir              = '/usr'
       $datadir              = '/var/lib/mysql'
       $service_name         = 'mysql'
-      $client_package_name  = 'mysql-client-5.6'
-      $server_package_name  = 'mysql-server-5.6'
+      $client_package_name  = 'mysql-client-5.7'
+      $server_package_name  = 'mysql-server-5.7'
       $socket               = '/var/run/mysqld/mysqld.sock'
       $pidfile              = '/var/run/mysqld/mysqld.pid'
       $config_file          = '/etc/mysql/my.cnf'
@@ -71,8 +71,8 @@ class mysql::params {
       $basedir               = '/usr/local'
       $datadir               = '/var/db/mysql'
       $service_name          = 'mysql-server'
-      $client_package_name   = 'databases/mysql55-client'
-      $server_package_name   = 'databases/mysql55-server'
+      $client_package_name   = 'databases/mysql57-client'
+      $server_package_name   = 'databases/mysql57-server'
       $socket                = '/tmp/mysql.sock'
       $pidfile               = '/var/db/mysql/mysql.pid'
       $config_file           = '/var/db/mysql/my.cnf'

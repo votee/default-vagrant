@@ -8,7 +8,7 @@
 -   Install vagrant-hostsupdater on your system
     see [cogitatio/vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater#installation)
 
--   Get a base box with puppet support
+-   Get a base box
     see [vagrantup.com docs](http://docs.vagrantup.com/v2/getting-started/boxes.html)
 
 -   Get a copy of this repository. You can do this either by integrating it as a git submodule or by just checking it out and copying the files. 
@@ -21,7 +21,7 @@
     $vhost = "test"
     $ip = "192.168.10.42"
 
-    $base_box = "ubuntu/trusty64"
+    $base_box = "bento/ubuntu-18.04"
 
     $webserver = "nginx"
     ```

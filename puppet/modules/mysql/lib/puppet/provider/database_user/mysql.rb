@@ -23,11 +23,11 @@ Puppet::Type.type(:database_user).provide(:mysql) do
   end
 
   def password_hash
-    mysql("--defaults-file=#{Facter.value(:root_home)}/.my.cnf", "mysql", "-NBe", "select password from mysql.user where CONCAT(user, '@', host) = '%s'" % @resource.value(:name)).chomp
+    mysql("--defaults-file=#{Facter.value(:root_home)}/.my.cnf", "mysql", "-NBe", "select authentication_string from mysql.user where CONCAT(user, '@', host) = '%s'" % @resource.value(:name)).chomp
   end
 
   def password_hash=(string)
-    mysql("--defaults-file=#{Facter.value(:root_home)}/.my.cnf", "mysql", "-e", "SET PASSWORD FOR '%s' = '%s'" % [ @resource[:name].sub("@", "'@'"), string ] )
+    mysql("--defaults-file=#{Facter.value(:root_home)}/.my.cnf", "mysql", "-e", "SET authentication_string FOR '%s' = '%s'" % [ @resource[:name].sub("@", "'@'"), string ] )
   end
 
   def exists?

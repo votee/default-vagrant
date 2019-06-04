@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--name", $vhost]
   end
 
+  config.vm.provision "shell", inline: "sudo apt-get update && sudo apt-get install -y puppet"
   config.vm.provision :puppet do |puppet|
       puppet.manifests_path = "puppet/manifests"
       puppet.manifest_file  = "app.pp"

@@ -15,10 +15,4 @@ class app::database {
         command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.localhost && bin/console doctrine:fixtures:load --no-interaction'",
         onlyif => "/srv/www/vhosts/$vhost.localhost/bin/console list | grep doctrine:fixtures",
     }
-
-    exec {"db-migrations":
-        require => [Exec["db-schema-create"], Package["php7.2-cli"], Class["mysql::server", "mysql::config"]],
-        command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.localhost && bin/console doctrine:migrations:migrate --no-interaction'",
-        onlyif => "/srv/www/vhosts/$vhost.localhost/bin/console list | grep doctrine:migrations",
-    }
 }

@@ -1,5 +1,5 @@
 class app::nodejs {
-    package {["python-software-properties"]:
+    package {["software-properties-common"]:
         ensure => present,
     }
 
@@ -15,10 +15,5 @@ class app::nodejs {
     package {["nodejs"]:
         require => Exec["setup-nodejs-v10"],
         ensure => present,
-    }
-
-    exec {"install-bower":
-        require => Package["nodejs"],
-        command => "npm install -g bower",
     }
 }
