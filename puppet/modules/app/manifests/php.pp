@@ -10,7 +10,7 @@ class app::php {
     }
 
     exec {"clear-symfony-cache":
-        require => [File["/var/www/"], Package["php7.2-cli"], Exec["install-bower"], Exec["db-schema-create"]],
+        require => [File["/var/www/"], Package["php7.2-cli"], Exec["db-schema-create"]],
         command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.localhost && COMPOSER_HOME=/var/www/.composer php composer.phar install'",
         user => "www-data"
     }
