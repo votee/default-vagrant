@@ -1,4 +1,4 @@
-class mysql::server:apparmor {
+class mysql::server::apparmor {
   file { '/etc/apparmor.d/usr.sbin.mysqld':
     ensure  => present,
     mode    => '1550',
