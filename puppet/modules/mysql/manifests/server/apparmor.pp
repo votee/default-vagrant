@@ -6,7 +6,7 @@ class mysql::server:apparmor {
   }
 
   exec {"apparmor-reload":
-    require => File["/etc/appamor.d/usr.sbin.mysqld"],
+    require => File["/etc/apparmor.d/usr.sbin.mysqld"],
     command => "apparmor_parser -r /etc/apparmor.d/usr.sbin.mysqld",
   }
 }
