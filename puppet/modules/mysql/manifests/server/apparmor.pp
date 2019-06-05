@@ -1,5 +1,5 @@
 class mysql::server:apparmor {
-  file { '/etc/appamor.d/usr.sbin.mysqld':
+  file { '/etc/apparmor.d/usr.sbin.mysqld':
     ensure  => present,
     mode    => '1550',
     source  => 'puppet://modules/mysql/usr.sbin.mysqld',
