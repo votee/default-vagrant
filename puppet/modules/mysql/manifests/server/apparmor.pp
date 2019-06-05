@@ -8,5 +8,6 @@ class mysql::server::apparmor {
   exec {"apparmor-reload":
     require => File["/etc/apparmor.d/usr.sbin.mysqld"],
     command => "apparmor_parser -r /etc/apparmor.d/usr.sbin.mysqld",
+    notify  => Exec['mysqld-restart'],
   }
 }
