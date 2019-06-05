@@ -2,7 +2,7 @@ class mysql::server:apparmor {
   file { '/etc/apparmor.d/usr.sbin.mysqld':
     ensure  => present,
     mode    => '1550',
-    source  => 'puppet://modules/mysql/usr.sbin.mysqld',
+    source  => 'puppet://modules/mysql/files/usr.sbin.mysqld',
   }
 
   exec {"apparmor-reload":
