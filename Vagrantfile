@@ -17,7 +17,11 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: $ip
 
-  config.vm.synced_folder "../", "/srv/www/vhosts/" + $vhost + ".localhost", id: "vagrant-root", type: "nfs"
+  nfsPath = ""
+  if Dir.exist?("/System/Volumes/Data")
+      nfsPath = "/System/Volumes/Data" + Dir.pwd + "/"
+  end
+  config.vm.synced_folder nfsPath + "../", "/srv/www/vhosts/" + $vhost + ".localhost", id: "vagrant-root", type: "nfs"
 
   config.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--memory", 2048]
