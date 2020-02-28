@@ -1,5 +1,16 @@
 class app::php {
-    package {["php7.2-cli", "php7.2-dev", "php-apcu-bc", "php7.2-mysql", "php7.2-intl", "php7.2-curl", "php7.2-xml", "php7.2-zip", "php-xdebug", "php-redis", "php-gd", "php-mbstring"]:
+    exec {"add-php-apt-repository":
+        require => Package["python-software-properties"],   
+        command => "add-apt-repository ppa:ondrej/php", 
+    }   
+
+    exec {"apt-update-php": 
+        require => Exec["add-php-apt-repository"],  
+        command => "/usr/bin/apt-get update",   
+    }   
+
+    package {["php7.4-cli", "php7.4-dev", "php-apcu-bc", "php7.4-mysql", "php7.4-intl", "php7.4-curl", "php7.4-xml", "php7.4-zip", "php-xdebug", "php-redis", "php-gd", "php-mbstring"]:
+        require => Exec["apt-update-php"],  
         ensure => present,
         notify => Service[$webserverService],
     }
@@ -10,7 +21,7 @@ class app::php {
     }
 
     exec {"clear-symfony-cache":
-        require => [File["/var/www/"], Package["php7.2-cli"], Exec["db-schema-create"]],
+        require => [File["/var/www/"], Package["php7.4-cli"], Exec["db-schema-create"]],
         command => "/bin/bash -c 'cd /srv/www/vhosts/$vhost.localhost && COMPOSER_HOME=/var/www/.composer php composer.phar install'",
         user => "www-data"
     }

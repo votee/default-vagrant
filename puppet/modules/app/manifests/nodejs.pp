@@ -7,13 +7,13 @@ class app::nodejs {
         ensure => present,
     }
 
-    exec {"setup-nodejs-v10":
+    exec {"setup-nodejs-v12":
         require => Package["curl"],
-        command => "curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -",
+        command => "curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -",
     }
 
     package {["nodejs"]:
-        require => Exec["setup-nodejs-v10"],
+        require => Exec["setup-nodejs-v12"],
         ensure => present,
     }
 }
