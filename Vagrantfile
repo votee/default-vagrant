@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
   if Dir.exist?("/System/Volumes/Data")
       nfsPath = "/System/Volumes/Data" + Dir.pwd + "/"
   end
-  config.vm.synced_folder nfsPath + "../", "/srv/www/vhosts/" + $vhost + ".localhost", id: "vagrant-root", type: "nfs"
+  config.vm.synced_folder nfsPath + "../", "/srv/www/vhosts/" + $vhost + ".localhost", id: "vagrant-root", type: "nfs", nfs_udp: false, mount_options: ["rw", "tcp", "nolock", "noacl", "async"]
 
   config.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--memory", 2048]
