@@ -11,7 +11,7 @@ $webserverService = $webserver ? {
 host { 'localhost':
     ip => '127.0.0.1',
     host_aliases => ["localhost.localdomain",
-                     "localhost4", "localhost4.localdomain4", "$vhost.localhost"],
+                     "localhost4", "localhost4.localdomain4", "$vhost.test"],
     notify => Service[$webserverService],
 }
 

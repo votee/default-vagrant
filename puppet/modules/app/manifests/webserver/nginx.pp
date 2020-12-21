@@ -38,10 +38,10 @@ class app::webserver::nginx {
         notify => Service["nginx"],
     }
 
-    file {"/etc/nginx/vhosts.d/$vhost.localhost.conf":
+    file {"/etc/nginx/vhosts.d/$vhost.test.conf":
         owner => root,
         group => root,
-        content => template("/vagrant/files/etc/nginx/vhosts.d/app.localhost.conf"),
+        content => template("/vagrant/files/etc/nginx/vhosts.d/app.test.conf"),
         require => Package["nginx"],
         notify => Service["nginx"],
     }
